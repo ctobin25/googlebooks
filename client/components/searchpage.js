@@ -30,3 +30,24 @@ const myBtnRgt={
     marginLeft: '20px',
     cursor: 'pointer'
 } 
+
+const [ searchInput, setSearchInput ] = useState("");
+const [ bookList, setBookList ] = useState([]);
+const [ showList, setShowList ] = useState([]);
+
+ 
+function handleInputChange( e ){
+    const newInput = e.target.value;
+    setSearchInput( newInput );
+}
+
+
+
+
+
+
+
+
+
+
+export default SearchPage;
