@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import BookList from './BookList';
+// import BookList from './booklist';
 
 function SearchPage(props) {
 
@@ -10,7 +10,6 @@ const myRef = useRef(null)
 
 const searchStyle = {
     height: '85vh',
-
     backgroundSize: 'cover',
     backgroundPositionY: '-174px'
 }
@@ -34,7 +33,7 @@ const myBtnRgt = {
 
 const [searchInput, setSearchInput] = useState("");
 const [bookList, setBookList] = useState([]);
-const [showList, setShowList] = useState([]);
+// const [showList, setShowList] = useState([]);
 
 
 function handleInputChange(e) {
@@ -56,12 +55,13 @@ return (
         <div class="jumbotron jumbotron-fluid hero" style={searchStyle}>
             <div class="searchBox container">
                 <div class="input-group mb-3 text-center" style={myForm}>
-                    <input onChange={handleInputChange} value={searchInput} type="text" class="form-control text-center" style={myInput} placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+
+                    <input onChange={handleInputChange} value={searchInput} type="text" class="form-control text-center" style={myInput} placeholder="search book" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
                     <div class="myBtnRgt" onClick={function(){ setResultBooks()}}>Search Books</div>
                 </div>
             </div>
         </div>
-        <BookList bookList={bookList} myRef={myRef} />
+        {/* <BookList bookList={bookList} myRef={myRef} /> */}
     </div>
 )
 
