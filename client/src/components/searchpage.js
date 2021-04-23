@@ -3,9 +3,9 @@ import React, { useState, useRef } from 'react'
 
 function SearchPage(props) {
 
-const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
+// const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
-const myRef = useRef(null)
+// const myRef = useRef(null)
 
 
 const searchStyle = {
@@ -34,6 +34,7 @@ const myBtnRgt = {
 const [searchInput, setSearchInput] = useState("");
 const [bookList, setBookList] = useState([]);
 // const [showList, setShowList] = useState([]);
+console.log("booklist",bookList)
 
 
 function handleInputChange(e) {
@@ -47,7 +48,7 @@ async function setResultBooks() {
 
     setBookList(bookResult.items);
     console.log('booklist: ', bookResult.items);
-    scrollToRef(myRef);
+    // scrollToRef(myRef);
 
 }
 return (
@@ -62,7 +63,30 @@ return (
             </div>
         </div>
         {/* <BookList bookList={bookList} myRef={myRef} /> */}
+
+        {/*  */}
+
+
+
+{bookList.map(book => {
+return (
+    <div className="card" style={{width: '200'}}>
+    <img src={book.volumeInfo.imageLinks.smallThumbnail} className="card-img-top" alt="..." />
+    <div className="card-body">
+      <h5 className="card-title">{book.volumeInfo.title}</h5>
+      <h6 className="card-title">{book.volumeInfo.authors}</h6>
+      <p className="card-text">{book.volumeInfo.description}</p>
+      <a href={book.volumeInfo.infoLink} target="_blank" className="btn btn-primary">View Book</a>
+      <button className="btn btn-primary">Save Book</button>
     </div>
+  </div>
+)
+
+})}
+
+
+    </div>
+
 )
 
 }
