@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 // import BookList from './booklist';
-
+import API from "../utils/API"
 function SearchPage(props) {
 
 // const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
@@ -34,7 +34,7 @@ const myBtnRgt = {
 const [searchInput, setSearchInput] = useState("");
 const [bookList, setBookList] = useState([]);
 // const [showList, setShowList] = useState([]);
-console.log("booklist",bookList)
+
 
 
 function handleInputChange(e) {
@@ -43,14 +43,30 @@ function handleInputChange(e) {
 }
 
 async function setResultBooks() {
-    console.log(`[setResultBooks] called with '${searchInput}'`);
+ 
     const bookResult = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`).then(result => result.json());
 
     setBookList(bookResult.items);
-    console.log('booklist: ', bookResult.items);
+ 
     // scrollToRef(myRef);
 
 }
+
+function saveBook(book) {
+    console.log(book)
+    API.saveBook({
+        title: book.volumeInfo.title,
+        author: book.volumeInfo.authors[0],
+        synopsis: book.volumeInfo.description,
+        imageLink: book.volumeInfo.imageLinks.smallThumbnail,
+        bookInfo: book.volumeInfo.infoLink
+      }).then(() => {
+          alert('book saved')
+      }).catch(err => {
+          alert('unable to save book')
+      })
+}
+  
 return (
     <div id='something'>
         <div class="jumbotron jumbotron-fluid hero" style={searchStyle}>
@@ -74,10 +90,10 @@ return (
     <img src={book.volumeInfo.imageLinks.smallThumbnail} className="card-img-top" alt="..." />
     <div className="card-body">
       <h5 className="card-title">{book.volumeInfo.title}</h5>
-      <h6 className="card-title">{book.volumeInfo.authors}</h6>
+      <h6 className="card-title">{book.volumeInfo.authors[0]}</h6>
       <p className="card-text">{book.volumeInfo.description}</p>
       <a href={book.volumeInfo.infoLink} target="_blank" className="btn btn-primary">View Book</a>
-      <button className="btn btn-primary">Save Book</button>
+      <button className="btn btn-primary"onClick = {() => saveBook(book)}>Save Book</button>
     </div>
   </div>
 )
